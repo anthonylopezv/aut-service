@@ -4,32 +4,32 @@ import {
   ApiOperation,
   ApiUseTags,
 } from '@nestjs/swagger';
-import { UserService } from "../user/user.service";
+import { AuthService } from "./auth.service";
 import { CreateUserDto } from "./dto/created-user.dto";
 
 @ApiUseTags('Auth')
 @Controller()
 export class AuthController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Get('users')
   @ApiOperation({ title: 'List users' })
   async listUsers() {
-    const users = await this.userService.listUsers();
+    const users = await this.authService.listUsers();
     return users;
   }
 
   @Post('/login')
   @ApiOperation({ title: 'Signin' })
   async signin(@Body() createUserDto: CreateUserDto) {
-    const auth = await this.userService.signin(createUserDto);
+    const auth = await this.authService.signin(createUserDto);
     return auth;
   }
 
   @Post('users')
   @ApiOperation({ title: 'Create users' })
   async createdUser(@Body() createUserDto: CreateUserDto) {
-    const newUser = await this.userService.createdUser(createUserDto);
+    const newUser = await this.authService.createdUser(createUserDto);
     return newUser;
   }
 }

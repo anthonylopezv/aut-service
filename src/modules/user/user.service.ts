@@ -5,12 +5,9 @@ import { ClientProxy } from "@nestjs/microservices";
 import { User } from "../auth/interfaces/auth.interface";
 import { CreateUserDto } from "../auth/dto/created-user.dto";
 
-import { JwtService } from "@nestjs/jwt";
-
 @Injectable()
 export class UserService {
   constructor(
-    private readonly jwtService: JwtService,
     @Inject('USER_SERVICE') private readonly client: ClientProxy,
   ) {}
 
@@ -24,16 +21,7 @@ export class UserService {
     const { username, password } = createdUserDto;
 
     const user = await this.client.send<User>(pattern, username).toPromise();
-    
-    if (!user) return 'User no found';
-    else if (user.password === password) {
-      const token = this.jwtService.sign(user);
-      return {
-        user,
-        token
-      }
-    }
-    else { return 'Password dont match' }
+    return user;
   }
 
   async listUsers() {
