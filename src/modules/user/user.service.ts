@@ -18,7 +18,7 @@ export class UserService {
 
   async signin(createdUserDto: CreateUserDto) {
     const pattern = { cmd: 'FIND_USER' };
-    const { username, password } = createdUserDto;
+    const { username } = createdUserDto;
 
     const user = await this.client.send<User>(pattern, username).toPromise();
     return user;
