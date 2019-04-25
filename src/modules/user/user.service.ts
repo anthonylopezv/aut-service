@@ -1,29 +1,30 @@
+import { Injectable, Inject } from "@nestjs/common";
 
-import { Injectable, Inject, OnModuleInit } from "@nestjs/common";
-import { ClientProxy, MessagePattern } from '@nestjs/microservices';
-import { Observable } from 'rxjs';
-import { User } from "./interfaces/auth.interface";
-import { CreateUserDto } from './dto/created-user.dto';
+import { ClientProxy } from "@nestjs/microservices";
 
-import { JwtService } from '@nestjs/jwt';
+import { User } from "../auth/interfaces/auth.interface";
+import { CreateUserDto } from "../auth/dto/created-user.dto";
+
+import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
-export class AuthService {
+export class UserService {
   constructor(
     private readonly jwtService: JwtService,
     @Inject('USER_SERVICE') private readonly client: ClientProxy,
   ) {}
 
   async onModuleInit() {
-    await this.client.connect();
+    const connect = this.client.connect();
+    return connect;
   }
 
-  async signin(createUserDto: CreateUserDto) {
-    const pattern = { cmd: 'FIND_USERS' };
-    const users = await this.client.send<User[]>(pattern, []).toPromise();
-    const {username, password} = createUserDto;
-    const user = users.find(u => u.username === username)
+  async signin(createdUserDto: CreateUserDto) {
+    const pattern = { cmd: 'FIND_USER' };
+    const { username, password } = createdUserDto;
 
+    const user = await this.client.send<User>(pattern, username).toPromise();
+    
     if (!user) return 'User no found';
     else if (user.password === password) {
       const token = this.jwtService.sign(user);
