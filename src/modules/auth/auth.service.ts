@@ -1,6 +1,8 @@
 import { Injectable } from "@nestjs/common";
 
-import { UserService } from "../user/user.service";
+// import { UserService } from "../user/user.service";
+
+import { UserService } from "user-service-mdl/lib/user.service";
 
 import { CreateUserDto } from "./dto/created-user.dto";
 

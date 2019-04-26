@@ -1,6 +1,7 @@
 
 {
   "compilerOptions": {
+    "paths": { "*": ["types/*"] },
     "module": "commonjs",
     "declaration": true,
     "noImplicitAny": false,

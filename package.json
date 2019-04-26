@@ -30,7 +30,8 @@
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.1",
-    "swagger-ui-express": "^4.0.2"
+    "swagger-ui-express": "^4.0.2",
+    "user-service-mdl": "^1.0.11"
   },
   "devDependencies": {
     "@nestjs/platform-express": "^6.1.1",
