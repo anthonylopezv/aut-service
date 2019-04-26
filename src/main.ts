@@ -17,5 +17,6 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   await app.listen(parseInt(process.env.PORT) || 9000);
+  console.log('Server on port', 9000);
 }
 bootstrap();

@@ -19,15 +19,15 @@ export class AuthController {
     return users;
   }
 
-  @Post('/login')
+  @Post('login')
   @ApiOperation({ title: 'Signin' })
   async signin(@Body() createUserDto: CreateUserDto) {
     const auth = await this.authService.signin(createUserDto);
     return auth;
   }
 
-  @Post('users')
-  @ApiOperation({ title: 'Create users' })
+  @Post('register')
+  @ApiOperation({ title: 'Signup' })
   async createdUser(@Body() createUserDto: CreateUserDto) {
     const newUser = await this.authService.createdUser(createUserDto);
     return newUser;
