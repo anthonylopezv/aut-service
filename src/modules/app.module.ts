@@ -10,7 +10,10 @@ import { AppService } from "./app.service";
 @Module({
   imports: [
     AuthModule,
-    UserModule,
+    UserModule.forRoot({
+      host: '157.230.212.28',
+      port: 1337,
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -18,7 +18,10 @@ import { AuthService } from "./auth.service";
         expiresIn: 3600,
       },
     }),
-    UserModule
+    UserModule.forRoot({
+      host: '157.230.212.28',
+      port: 1337,
+    }),
   ],
   controllers: [AuthController],
   providers: [AuthService]
